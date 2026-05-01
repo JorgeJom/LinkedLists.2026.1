@@ -1,81 +1,114 @@
 ﻿using DoubleList;
-using SimpleList;
 
-//var list = new SinglyLinkedList<string>();
 var list = new DoubleLinkedList<string>();
+
 var option = string.Empty;
 var value = string.Empty;
+
 do
 {
     option = Menu();
+
     switch (option)
     {
         case "1":
-            Console.Write("Enter a value: ");
+            Console.Write("Ingresa un valor: ");
             value = Console.ReadLine() ?? string.Empty;
-            list.InsertAtBeginning(value);
+            list.InsertOrdered(value);         // Inserción ordenada ascendente
             break;
 
         case "2":
-            Console.Write("Enter a value: ");
-            value = Console.ReadLine() ?? string.Empty;
-            list.InsertAtEnding(value);
+            Console.WriteLine("Lista hacia adelante:");
+            Console.WriteLine(list.ToString());
             break;
 
         case "3":
-            Console.Write("Enter a value: ");
-            value = Console.ReadLine() ?? string.Empty;
-            var exists = list.Contains(value);
-            if (exists)
-            {
-                Console.WriteLine($"Value '{value}' found in the list.");
-            }
-            else
-            {
-                Console.WriteLine($"Value '{value}' not found in the list.");
-            }
+            Console.WriteLine("Lista hacia atrás:");
+            Console.WriteLine(list.ToStringReverse());
             break;
 
         case "4":
-            Console.Write("Enter a value: ");
-            value = Console.ReadLine() ?? string.Empty;
-            list.Remove(value);
+            list.Sort();
+            Console.WriteLine("Lista ordenada descendentemente:");
+            Console.WriteLine(list.ToString());
             break;
 
         case "5":
-            list.Reverse();
+            var modes = list.Mode();
+            if (modes.Count == 0)
+            {
+                Console.WriteLine("La lista está vacía.");
+            }
+            else if (modes.Count == 1)
+            {
+                Console.WriteLine($"La moda es: {modes[0]}");
+            }
+            else
+            {
+                Console.WriteLine($"Las modas son: {string.Join(", ", modes)}");
+            }
+            break;
+
+        case "6":
+            var chart = list.Chart();
+            if (string.IsNullOrEmpty(chart))
+                Console.WriteLine("La lista está vacía.");
+            else
+                Console.WriteLine(chart);
+            break;
+
+        case "7":
+            Console.Write("Ingresa un valor a buscar: ");
+            value = Console.ReadLine() ?? string.Empty;
+            if (list.Contains(value))
+                Console.WriteLine($"El valor '{value}' SÍ existe en la lista.");
+            else
+                Console.WriteLine($"El valor '{value}' NO existe en la lista.");
             break;
 
         case "8":
+            list.RemoveFirstMode();
+            Console.WriteLine("Primera ocurrencia eliminada.");
+            Console.WriteLine("Lista actual:");
             Console.WriteLine(list.ToString());
             break;
 
         case "9":
-            Console.WriteLine(list.ToStringReverse());
+            list.RemoveAllModes();
+            Console.WriteLine("Todas las ocurrencias eliminadas.");
+            Console.WriteLine("Lista actual:");
+            Console.WriteLine(list.ToString());
             break;
 
         case "0":
-            Console.WriteLine("Exiting...");
+            Console.WriteLine("Saliendo...");
             break;
 
         default:
-            Console.WriteLine("Invalid option. Please try again.");
+            Console.WriteLine("Opción inválida. Intenta de nuevo.");
             break;
     }
+
 } while (option != "0");
+
 
 string Menu()
 {
-    Console.WriteLine("1. Insert at the beginning");
-    Console.WriteLine("2. Insert at the ending");
-    Console.WriteLine("3. Search for a value");
-    Console.WriteLine("4. Remove a value");
-    Console.WriteLine("5. Reverse list");
-    Console.WriteLine("6. Order list"); // Homework
-    Console.WriteLine("7. Insert ordered"); // Homework
-    Console.WriteLine("8. Show list");
-    Console.WriteLine("9. Show list in reverse");
-    Console.WriteLine("0. Exit");
-    Console.Write("Enter your option: ");
+    Console.WriteLine();
+    Console.WriteLine("══════════════════════════════");
+    Console.WriteLine("   LISTA DOBLEMENTE LIGADA    ");
+    Console.WriteLine("══════════════════════════════");
+    Console.WriteLine("1. Adicionar");
+    Console.WriteLine("2. Mostrar hacia adelante");
+    Console.WriteLine("3. Mostrar hacia atrás");
+    Console.WriteLine("4. Ordenar descendentemente");
+    Console.WriteLine("5. Mostrar la(s) moda(s)");
+    Console.WriteLine("6. Mostrar gráfico");
+    Console.WriteLine("7. Existe");
+    Console.WriteLine("8. Eliminar una ocurrencia");
+    Console.WriteLine("9. Eliminar todas las ocurrencias");
+    Console.WriteLine("0. Salir");
+    Console.WriteLine("══════════════════════════════");
+    Console.Write("Ingresa tu opción: ");
     return Console.ReadLine() ?? string.Empty;
 }

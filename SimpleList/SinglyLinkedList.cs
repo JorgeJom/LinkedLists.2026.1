@@ -2,7 +2,7 @@
 
 namespace SimpleList;
 
-public class SinglyLinkedList<T> : ILinkedList<T>
+public class SinglyLinkedList<T> : ILinkedList<T> where T : IComparable<T>
 {
     private Node<T>? _head;
 

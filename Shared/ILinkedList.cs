@@ -1,6 +1,6 @@
 ﻿namespace Shared;
 
-public interface ILinkedList<T>
+public interface ILinkedList<T> where T : IComparable<T>
 {
     bool Contains(T data);
     void InsertAtBeginning(T data);
