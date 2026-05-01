@@ -95,9 +95,9 @@ do
 string Menu()
 {
     Console.WriteLine();
-    Console.WriteLine("══════════════════════════════");
+    Console.WriteLine("==============================");
     Console.WriteLine("   LISTA DOBLEMENTE LIGADA    ");
-    Console.WriteLine("══════════════════════════════");
+    Console.WriteLine("==============================");
     Console.WriteLine("1. Adicionar");
     Console.WriteLine("2. Mostrar hacia adelante");
     Console.WriteLine("3. Mostrar hacia atrás");
@@ -108,7 +108,7 @@ string Menu()
     Console.WriteLine("8. Eliminar una ocurrencia");
     Console.WriteLine("9. Eliminar todas las ocurrencias");
     Console.WriteLine("0. Salir");
-    Console.WriteLine("══════════════════════════════");
+    Console.WriteLine("==============================");
     Console.Write("Ingresa tu opción: ");
     return Console.ReadLine() ?? string.Empty;
 }
