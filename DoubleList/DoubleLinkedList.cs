@@ -13,12 +13,12 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         _tail = null;
     }
 
-    // ─── Inserción ordenada ascendente ───────────────────────────────────────
+    // Ordered ascending insertion
     public void InsertOrdered(T data)
     {
         var newNode = new Node<T>(data);
 
-        // Lista vacía
+        // Empty list
         if (_head == null)
         {
             _head = newNode;
@@ -26,7 +26,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
             return;
         }
 
-        // Insertar antes de la cabeza
+        // Insert before the head
         if (data.CompareTo(_head.Data) <= 0)
         {
             newNode.Next = _head;
@@ -35,21 +35,21 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
             return;
         }
 
-        // Buscar posición correcta
+        // Find correct position
         var current = _head;
         while (current.Next != null && current.Next.Data!.CompareTo(data) <= 0)
         {
             current = current.Next;
         }
 
-        // Insertar al final
+        // Insert at the end
         if (current.Next == null)
         {
             current.Next = newNode;
             newNode.Previous = current;
             _tail = newNode;
         }
-        else // Insertar en medio
+        else // Insert in middle
         {
             newNode.Next = current.Next;
             newNode.Previous = current;
@@ -58,7 +58,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
     }
 
-    // ─── InsertAtBeginning / InsertAtEnding (se conservan) ──────────────────
+    // InsertAtBeginning / InsertAtEnding
     public void InsertAtBeginning(T data)
     {
         var newNode = new Node<T>(data);
@@ -91,7 +91,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
     }
 
-    // ─── Contains ────────────────────────────────────────────────────────────
+    // Contains
     public bool Contains(T data)
     {
         var current = _head;
@@ -104,7 +104,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         return false;
     }
 
-    // ─── Remove (primera ocurrencia) ─────────────────────────────────────────
+    // Remove (first occurrence) 
     public void Remove(T data)
     {
         var current = _head;
@@ -119,7 +119,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
     }
 
-    // ─── RemoveAll (todas las ocurrencias) ───────────────────────────────────
+    //RemoveAll (all occurrences)
     public void RemoveAll(T data)
     {
         var current = _head;
@@ -132,10 +132,10 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
     }
 
-    // ─── Lógica interna para eliminar un nodo ────────────────────────────────
+    // Internal logic to remove a node
     private void RemoveNode(Node<T> node)
     {
-        if (node == _head && node == _tail) // único elemento
+        if (node == _head && node == _tail) // only element
         {
             _head = null;
             _tail = null;
@@ -157,7 +157,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
     }
 
-    // ─── Reverse (invertir la lista) ─────────────────────────────────────────
+    // Reverse (reverse the list) 
     public void Reverse()
     {
         if (_head == null || _head == _tail) return;
@@ -165,29 +165,29 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         var current = _head;
         while (current != null)
         {
-            // Intercambiar Next y Previous en cada nodo
+            // Swap Next and Previous on each node
             var temp = current.Next;
             current.Next = current.Previous;
             current.Previous = temp;
-            current = temp; // avanzar
+            current = temp;
         }
 
-        // Intercambiar _head y _tail
+        // Swap _head and _tail
         var swap = _head;
         _head = _tail;
         _tail = swap;
     }
 
-    // ─── Sort (ordenar descendentemente = invertir la lista ya ordenada) ──────
+    // Sort (sort descending = reverse the already sorted list)
     public void Sort()
     {
         Reverse();
     }
 
-    // ─── Moda ────────────────────────────────────────────────────────────────
+    // Fashion
     public List<T> Mode()
     {
-        // Contar frecuencias
+        // Count frequencies
         var frequencies = new Dictionary<T, int>();
         var current = _head;
         while (current != null)
@@ -208,7 +208,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
             .ToList();
     }
 
-    // ─── Gráfico de ocurrencias ───────────────────────────────────────────────
+    // Occurrence chart
     public string Chart()
     {
         var frequencies = new Dictionary<T, int>();
@@ -230,7 +230,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         return result;
     }
 
-    // ─── ToString (hacia adelante) ────────────────────────────────────────────
+    // ToString (forwards)
     public override string ToString()
     {
         var current = _head;
@@ -244,7 +244,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         return result;
     }
 
-    // ─── ToStringReverse (hacia atrás) ───────────────────────────────────────
+    // ToStringReverse (backward)
     public string ToStringReverse()
     {
         var current = _tail;
@@ -258,10 +258,10 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         return result;
     }
 
-    // Elimina la primera aparición de cada valor que sea moda
+    // Remove the first occurrence of each value that is a mode
     public void RemoveFirstMode()
     {
-        // Contar frecuencias respetando el orden de aparición
+        // Count frequencies respecting the order of appearance
         var frequencies = new Dictionary<T, int>();
         var current = _head;
         while (current != null)
@@ -277,20 +277,20 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
 
         var maxFreq = frequencies.Values.Max();
 
-        // Recorrer de izquierda a derecha y eliminar el primer nodo cuya frecuencia sea la máxima
+        // Traverse from left to right and remove the first node whose frequency is the highest
         current = _head;
         while (current != null)
         {
             if (frequencies.ContainsKey(current.Data!) && frequencies[current.Data!] == maxFreq)
             {
                 RemoveNode(current);
-                return; // solo una ocurrencia
+                return;
             }
             current = current.Next;
         }
     }
 
-    // Elimina todas las apariciones de cada valor que sea moda
+    // Remove all occurrences of each value that is a mode
     public void RemoveAllModes()
     {
         var modes = Mode();
